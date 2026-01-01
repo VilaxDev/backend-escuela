@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 const routes = require("./routes/route");
 
 var corsOptions = {
-  origin: "https://bendito-capricho-spa.netlify.app/",
+  origin: "https://bendito-capricho-spa.netlify.app",
   optionsSuccessStatus: 200,
 };
 
