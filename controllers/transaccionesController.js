@@ -7,7 +7,7 @@ exports.getAll = async (req, res) => {
     const offset = (page - 1) * limit;
 
     const [rows] = await pool.query(
-      "SELECT * FROM transactions ORDER BY date DESC LIMIT ? OFFSET ?",
+      "SELECT * FROM transactions LIMIT ? OFFSET ?",
       [limit, offset]
     );
 
@@ -46,14 +46,12 @@ exports.getById = async (req, res) => {
 };
 
 exports.create = async (req, res) => {
-  const { type, category, amount, date, description } = req.body;
-
+  const { type, category, amount, date, description, created_at } = req.body;
   try {
     const [result] = await pool.query(
-      "INSERT INTO transactions (type, category, amount, date, description) VALUES (?, ?, ?, ?, ?)",
-      [type, category, amount, date, description]
+      "INSERT INTO transactions (type, category, amount, date, description, created_at) VALUES (?, ?, ?, ?, ?, ?)",
+      [type, category, amount, date, description, created_at]
     );
-
     res.status(201).json({
       id: result.insertId,
       type,
@@ -61,7 +59,7 @@ exports.create = async (req, res) => {
       amount,
       date,
       description,
-      created_at: new Date(), // simulamos el timestamp
+      created_at,
     });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -85,7 +83,7 @@ exports.update = async (req, res) => {
       amount,
       date,
       description,
-      created_at: new Date(),
+      created_at,
     });
   } catch (err) {
     res.status(500).json({ error: err.message });
