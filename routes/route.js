@@ -2,31 +2,31 @@ const express = require("express");
 const router = express.Router();
 
 const indexController = require("../controllers/indexController");
-const estudiantesController = require("../controllers/estudiantesController");
-const profesoresController = require("../controllers/profesoresController");
-const cursosController = require("../controllers/cursosController");
+const transaccionesController = require("../controllers/transaccionesController");
+const reservacionesController = require("../controllers/reservacionesController");
+const recordatoriosController = require("../controllers/recordatoriosController");
 
 router.get("/", indexController.home);
 
-// Estudiantes
-router.get("/estudiantes", estudiantesController.getAll);
-router.get("/estudiantes/:id", estudiantesController.getById);
-router.post("/estudiantes", estudiantesController.create);
-router.put("/estudiantes/:id", estudiantesController.update);
-router.delete("/estudiantes/:id", estudiantesController.remove);
+// Transacciones
+router.get("/transacciones", transaccionesController.getAll);
+router.get("/transacciones/:id", transaccionesController.getById);
+router.post("/transacciones", transaccionesController.create);
+router.put("/transacciones/update/:id", transaccionesController.update);
+router.delete("/transacciones/delete/:id", transaccionesController.remove);
 
-// Profesores
-router.get("/profesores", profesoresController.getAll);
-router.get("/profesores/:id", profesoresController.getById);
-router.post("/profesores", profesoresController.create);
-router.put("/profesores/:id", profesoresController.update);
-router.delete("/profesores/:id", profesoresController.remove);
+// Reservaciones
+router.get("/reservaciones", reservacionesController.getAll);
+router.get("/reservaciones/:id", reservacionesController.getById);
+router.post("/reservaciones", reservacionesController.create);
+router.put("/reservaciones/update/:id", reservacionesController.update);
+router.delete("/reservaciones/delete/:id", reservacionesController.remove);
 
-// Cursos
-router.get("/cursos", cursosController.getAll);
-router.get("/cursos/:id", cursosController.getById);
-router.post("/cursos", cursosController.create);
-router.put("/cursos/:id", cursosController.update);
-router.delete("/cursos/:id", cursosController.remove);
+// Recordatorios
+router.get("/recordatorios", recordatoriosController.getAll);
+router.get("/recordatorios/:id", recordatoriosController.getById);
+router.post("/recordatorios", recordatoriosController.create);
+router.put("/recordatorios/update/:id", recordatoriosController.update);
+router.delete("/recordatorios/delete/:id", recordatoriosController.remove);
 
 module.exports = router;

@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 const routes = require("./routes/route");
 
 var corsOptions = {
-  origin: "http://localhost:5173",
+  origin: "http://localhost:3000",
   optionsSuccessStatus: 200,
 };
 
