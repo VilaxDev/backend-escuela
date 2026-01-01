@@ -85,7 +85,7 @@ exports.update = async (req, res) => {
       amount,
       date,
       description,
-      created_at,
+      created_at: new Date(),
     });
   } catch (err) {
     res.status(500).json({ error: err.message });
