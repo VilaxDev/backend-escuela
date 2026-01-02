@@ -52,15 +52,17 @@ exports.auth = async (req, res) => {
 exports.create = async (req, res) => {
   const { name, email, password } = req.body;
   try {
+    // Encriptar contraseña
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const [result] = await pool.query(
       "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
-      [name, email, password]
+      [name, email, hashedPassword]
     );
     res.status(201).json({
       id: result.insertId,
       name,
       email,
-      password,
     });
   } catch (err) {
     res.status(500).json({ error: err.message });
