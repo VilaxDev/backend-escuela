@@ -8,7 +8,7 @@ const recordatoriosController = require("../controllers/recordatoriosController"
 const usersController = require("../controllers/usersController");
 
 // Usuarios
-router.post("/auth", usersController.auth);
+router.post("/auth/login", usersController.auth);
 router.post("/auth/register", usersController.create);
 router.put("/users/update/:id", usersController.update);
 
