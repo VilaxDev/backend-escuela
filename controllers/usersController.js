@@ -53,7 +53,7 @@ exports.create = async (req, res) => {
   const { name, email, password } = req.body;
   try {
     // Encriptar contraseña
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 9);
 
     const [result] = await pool.query(
       "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
