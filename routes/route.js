@@ -5,7 +5,14 @@ const indexController = require("../controllers/indexController");
 const transaccionesController = require("../controllers/transaccionesController");
 const reservacionesController = require("../controllers/reservacionesController");
 const recordatoriosController = require("../controllers/recordatoriosController");
+const usersController = require("../controllers/usersController");
 
+// Usuarios
+router.post("/users/auth", usersController.auth);
+router.post("/users", usersController.create);
+router.put("/users/update/:id", usersController.update);
+
+// Página principal
 router.get("/", indexController.home);
 
 // Transacciones
