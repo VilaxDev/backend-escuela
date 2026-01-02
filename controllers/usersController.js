@@ -1,17 +1,50 @@
 const pool = require("../database/conection");
 
+// Clave secreta (GUARDAR EN .env)
+const JWT_SECRET = process.env.JWT_SECRET || "clave_super_secreta";
+
 exports.auth = async (req, res) => {
   const { email, password } = req.body;
+
   try {
+    // Buscar usuario por email
     const [rows] = await pool.query(
-      "SELECT * FROM users WHERE email = ? AND password = ?",
-      [email, password]
+      "SELECT * FROM users WHERE email = ? LIMIT 1",
+      [email]
     );
-    if (rows.length === 0)
-      return res.status(401).json({ error: "Credenciales inválidas" });
-    res.json({ ok: true, message: "Autenticación exitosa", user: rows[0] });
+
+    if (rows.length === 0) {
+      return res.status(401).json({ message: "Credenciales inválidas" });
+    }
+
+    const user = rows[0];
+
+    // Verificar contraseña
+    const validPassword = await bcrypt.compare(password, user.password);
+
+    if (!validPassword) {
+      return res.status(401).json({ message: "Credenciales inválidas" });
+    }
+
+    // Crear token JWT
+    const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, {
+      expiresIn: "7d",
+    });
+
+    res.json({
+      message: "Autenticación exitosa",
+      token,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+    });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res
+      .status(500)
+      .json({ message: "Error interno del servidor", error: err.message });
   }
 };
 
