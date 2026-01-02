@@ -27,20 +27,17 @@ exports.create = async (req, res) => {
   const { client, service, date, status, phone, created_at } = req.body;
   try {
     const [result] = await pool.query(
-      "INSERT INTO reservations (client, service, date, status, phone, created_at) VALUES (?, ?, ?, ?, ?, ?)",
-      [client, service, date, status, phone, created_at]
+      "INSERT INTO reservations (client, service, date, status, phone) VALUES (?, ?, ?, ?, ?)",
+      [client, service, date, status, phone]
     );
-    res
-      .status(201)
-      .json({
-        id: result.insertId,
-        client,
-        service,
-        date,
-        status,
-        phone,
-        created_at,
-      });
+    res.status(201).json({
+      id: result.insertId,
+      client,
+      service,
+      date,
+      status,
+      phone,
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -48,11 +45,11 @@ exports.create = async (req, res) => {
 
 exports.update = async (req, res) => {
   const { id } = req.params;
-  const { client, service, date, status, phone, created_at } = req.body;
+  const { client, service, date, status, phone } = req.body;
   try {
     const [result] = await pool.query(
-      "UPDATE reservations SET client = ?, service = ?, date = ?, status = ?, phone = ?, created_at = ? WHERE id = ?",
-      [client, service, date, status, phone, created_at, id]
+      "UPDATE reservations SET client = ?, service = ?, date = ?, status = ?, phone = ? WHERE id = ?",
+      [client, service, date, status, phone, id]
     );
     if (result.affectedRows === 0)
       return res.status(404).json({ error: "No encontrado" });
@@ -63,7 +60,6 @@ exports.update = async (req, res) => {
       date,
       status,
       phone,
-      created_at,
     });
   } catch (err) {
     res.status(500).json({ error: err.message });

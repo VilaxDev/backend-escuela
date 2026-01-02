@@ -7,7 +7,7 @@ CREATE TABLE transactions (
   type ENUM('Ingreso', 'Gasto') NOT NULL,
   category VARCHAR(100) NOT NULL,
   amount DECIMAL(10, 2) NOT NULL,
-  date DATETIME NOT NULL,
+  date DATE NOT NULL,
   description TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
