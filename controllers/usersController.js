@@ -1,4 +1,6 @@
 const pool = require("../database/conection");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 // Clave secreta (GUARDAR EN .env)
 const JWT_SECRET = process.env.JWT_SECRET || "clave_super_secreta";
