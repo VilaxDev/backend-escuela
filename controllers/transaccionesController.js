@@ -67,11 +67,11 @@ exports.create = async (req, res) => {
 
 exports.update = async (req, res) => {
   const { id } = req.params;
-  const { type, category, amount, date, description, created_at } = req.body;
+  const { type, category, amount, date, description } = req.body;
   try {
     const [result] = await pool.query(
-      "UPDATE transactions SET type = ?, category = ?, amount = ?, date = ?, description = ?, created_at = ? WHERE id = ?",
-      [type, category, amount, date, description, created_at, id]
+      "UPDATE transactions SET type = ?, category = ?, amount = ?, date = ?, description = ? WHERE id = ?",
+      [type, category, amount, date, description, id]
     );
     if (result.affectedRows === 0)
       return res.status(404).json({ error: "No encontrado" });
@@ -82,7 +82,6 @@ exports.update = async (req, res) => {
       amount,
       date,
       description,
-      created_at,
     });
   } catch (err) {
     res.status(500).json({ error: err.message });
