@@ -46,11 +46,11 @@ exports.getById = async (req, res) => {
 };
 
 exports.create = async (req, res) => {
-  const { type, category, amount, date, description, created_at } = req.body;
+  const { type, category, amount, date, description } = req.body;
   try {
     const [result] = await pool.query(
-      "INSERT INTO transactions (type, category, amount, date, description, created_at) VALUES (?, ?, ?, ?, ?, ?)",
-      [type, category, amount, date, description, created_at]
+      "INSERT INTO transactions (type, category, amount, date, description) VALUES (?, ?, ?, ?, ?)",
+      [type, category, amount, date, description]
     );
     res.status(201).json({
       id: result.insertId,
@@ -59,7 +59,6 @@ exports.create = async (req, res) => {
       amount,
       date,
       description,
-      created_at,
     });
   } catch (err) {
     res.status(500).json({ error: err.message });
