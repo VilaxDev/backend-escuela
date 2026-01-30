@@ -7,7 +7,7 @@ exports.getAll = async (req, res) => {
     const offset = (page - 1) * limit;
 
     const [rows] = await pool.query(
-      "SELECT * FROM transactions LIMIT ? OFFSET ?",
+      "SELECT * FROM transactions ORDER BY date DESC LIMIT ? OFFSET ?",
       [limit, offset]
     );
 
